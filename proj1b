@@ -1,0 +1,35 @@
+#!/bin/bash
+# make directory with name of first arg
+# ex - ./proj1 foo makes root dir /foo
+
+# make directory
+mkdir $1
+
+# make subdirectories Dir 1 and Dir 2
+mkdir -m 770 $1/Dir1
+#chmod 770 $1/Dir1
+mkdir -m 775 $1/Dir2 
+#chmod 775 $1/Dir2
+
+# create file1 in Dir1
+touch $1/Dir1/File1
+chmod 400 $1/Dir1/File1
+
+# make directory 3 with permission 700 so we can add directories and files to it
+# later it will have permission 000
+mkdir -m 700 $1/Dir1/Dir3
+
+# make directory 4 with permission 750
+mkdir -m 750 $1/Dir1/Dir3/Dir4
+
+#make file 3 and 4 in one line
+touch $1/Dir1/Dir3/Dir4/{File3,File4}
+chmod 200 $1/Dir1/Dir3/Dir4/File3
+
+chmod 666 $1/Dir1/Dir3/Dir4/File4
+
+# make File 2 in directory 2
+touch $1/Dir2/File2
+chmod 640 $1/Dir2/File2
+
+chmod 000 $1/Dir1/Dir3
